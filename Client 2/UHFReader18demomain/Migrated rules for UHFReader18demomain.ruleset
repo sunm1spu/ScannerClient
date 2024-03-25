@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Migrated rules for UHFReader18demomain.ruleset" Description="This rule set was created from the CodeAnalysisRules property for the &quot;Release (x86)&quot; configuration in project &quot;C:\Users\geeky\OneDrive\Desktop\New folder (5)\OT-ZMZYQ-799说明\CF-RU5106.5112\Demo\Csharp\UHFReader18demomain\UHFReader18demomain.csproj&quot;." ToolsVersion="17.0">
+  <RuleHintPaths>
+    <Path>C:\Program Files\Microsoft Visual Studio 8\Team Tools\Static Analysis Tools\FxCop\\rules</Path>
+  </RuleHintPaths>
+</RuleSet>
