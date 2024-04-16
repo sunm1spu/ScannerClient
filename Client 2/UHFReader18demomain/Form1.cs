@@ -1346,6 +1346,7 @@ namespace UHFReader18demomain
             Inventory();
         }
 
+        // READ EPC FUNCTION
         private void SpeedButton_Read_G2_Click(object sender, EventArgs e)
         {
             if (Edit_WordPtr.Text == "")
@@ -2576,7 +2577,8 @@ namespace UHFReader18demomain
                 // hard tag 1: E20040D40000000000000000
 
                 // Scan API call
-                WebCalls.ScanCall(temps, client);
+                WebCalls calls = new WebCalls();
+                calls.ScanCall(temps, client);
 
                 // Dummy data 
 
@@ -5541,5 +5543,9 @@ namespace UHFReader18demomain
             CloseNetPort.Enabled = true;
         }
 
+        private void ListView1_EPC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
