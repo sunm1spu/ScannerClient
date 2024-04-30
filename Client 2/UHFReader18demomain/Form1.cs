@@ -2542,9 +2542,15 @@ namespace UHFReader18demomain
                  SpeedButton_Read_6B.Text = "Stop";
              }
         }
+
+        // Dictionary<string, DateTime> scanPackage = new Dictionary<string, DateTime>();
+        List<String[]> scanPackage = new List<String[]>();
+        HashSet<String> uniqueIds = new HashSet<String>();
+        
+        WebCalls calls = new WebCalls();
         private void Read_6B()
         {
-            Console.WriteLine("READ_6B STARTED \n");
+            
             string temp, temps;
             byte[] CardData = new byte[320];
             byte[] ID_6B = new byte[8];
@@ -2568,7 +2574,10 @@ namespace UHFReader18demomain
 
             if (fCmdRet == 0)
             {
+                Console.WriteLine("---------NUM: " + Num + "\n");
                 byte[] data = new byte[Num];
+                Console.WriteLine("---------DATA: " + data + "\n");
+
                 Array.Copy(CardData, data, Num);
                 temps = ByteArrayToHexString(data);
                 listBox2.Items.Add(temps);
@@ -2576,10 +2585,23 @@ namespace UHFReader18demomain
                 Console.WriteLine("----------SCAN DATA: " + temps + "\n");
                 // hard tag 1: E20040D40000000000000000
 
-                // Scan API call
-                WebCalls calls = new WebCalls();
-                calls.ScanCall(temps, client);
+                // Add new scan to scanPackage
+                String concatTemps = temps.Substring(0, 4);
+                Console.WriteLine("--- Concat Data: " + concatTemps);
 
+                if (!uniqueIds.Contains(concatTemps)) {
+                    
+                    String[] newKeyTime = { concatTemps, DateTime.Now.ToString() };
+                    scanPackage.Add(newKeyTime);
+                }
+
+                String[] firstPair = (String[])scanPackage[0];
+                bool isTimeUp = calls.Debouncer(WebCalls.LOGSCAN, firstPair);
+
+                if (isTimeUp) {
+                    calls.ScanCall(scanPackage, client);
+                    scanPackage.Clear();
+                }
                 // Dummy data 
 
                 // POST test code

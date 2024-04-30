@@ -8,7 +8,7 @@ namespace UHFReader18demomain
 {
     class PostData
     {
-        public string scanData
+        public List<string[]> SCANS
         {
             get; set;
         }

@@ -1,0 +1,10 @@
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.csproj.AssemblyReference.cache
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.ChangeIPdlg.resources
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.fNhSetDlg.resources
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.Form1.resources
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.fPhSetDlg.resources
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.fSetdlg.resources
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.locateForm.resources
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.Properties.Resources.resources
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.csproj.GenerateResource.cache
+C:\Users\geeky\OneDrive\Desktop\capstone\Client 2\UHFReader18demomain\obj\x86\Release\UHFReader18demomain.csproj.CoreCompileInputs.cache

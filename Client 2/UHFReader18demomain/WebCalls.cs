@@ -12,20 +12,21 @@ namespace UHFReader18demomain
 
     public class WebCalls
     {
-        public const string DEVURL = "http://localhost:5001";
+        public const string DEVURL = "http://localhost:5000";
+
         public const string LOGSCAN = "/api/inventory/scan";
 
         // Time of last call trackers
         // private (int, DateTime) lastScan;
         // Dictionary of scan values and last time it was sent as a request
-        private Dictionary<string, DateTime> lastScan = new Dictionary<string, DateTime>();
+        // private Dictionary<string, DateTime> lastScan = new Dictionary<string, DateTime>();
 
         public WebCalls()
         {
 
         }
 
-        public async void ScanCall(string data, HttpClient client)
+        public async void ScanCall(List<String[]> scanPackage, HttpClient client)
         {
             // The scan call will only need the scan data and will assign a timestamp on the serverside
             // Previous problems:
@@ -33,21 +34,19 @@ namespace UHFReader18demomain
             Console.WriteLine("Generating payload \n");
             var payloadJSON = new PostData
             {
-                scanData = data
+                SCANS = scanPackage
 
             };
 
+            // 4.5.2 missing namespace json
             var json = JsonSerializer.Serialize(payloadJSON);
             var payload = new StringContent(json, Encoding.UTF8, "application/json");
 
             try
             {
-                if (Debouncer(LOGSCAN, data, client))
-                {
                     var response = await client.PostAsync(DEVURL + LOGSCAN, payload);
                     var responseString = await response.Content.ReadAsStringAsync();
 
-                }
             }
             catch (HttpRequestException e)
             {
@@ -55,31 +54,18 @@ namespace UHFReader18demomain
             }
 
         }
-        private bool Debouncer(string ENDPOINT, string data, HttpClient client)
+        public bool Debouncer(string ENDPOINT, String[] data)
         {
             // Get time passed between last call and current call
             DateTime currentTime = DateTime.Now;
+            DateTime firstTime = DateTime.Parse(data[1]);
 
-            // Max int, about 24 days
-            int timeDiffCalls = 2147483647;
-
-            // If data has been passed before
-            if (lastScan.ContainsKey(data))
-            {
-
-                // Should deal with overflow somehow
-                timeDiffCalls = currentTime.Subtract(lastScan[data]).Milliseconds;
-            }
-            else
-            {
-                lastScan.Add(data, currentTime);
-            }
+            TimeSpan timeDiff = currentTime.Subtract(firstTime);
+            int timeDiffMS = timeDiff.Milliseconds;
 
             // Continue if enough time has passed
-            if (timeDiffCalls > RateLimiter(ENDPOINT))
+            if (timeDiffMS > RateLimiter(ENDPOINT))
             {
-                lastScan[data] = currentTime;
-
                 return true;
             }
 
@@ -87,7 +73,7 @@ namespace UHFReader18demomain
             else
             {
                 Console.WriteLine("NOT ENOUGH TIME HAS PASSED \n");
-                Console.WriteLine(timeDiffCalls);
+                Console.WriteLine(timeDiffMS);
 
                 return false;
             }
